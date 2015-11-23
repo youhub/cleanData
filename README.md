@@ -4,4 +4,4 @@ At the first, the script reads the data into data frame: subject_train, x_train,
 
 The script uses cbine to combine all the data for test set together, and do the same for the train data set. Then the script use rbine to combine all the data for test set and train set together. 
 
-The script uses melt to convert the full data set from wide format to a format that is keyed by "subject" and "activity". But I had problem using dcast on the data and did not have enough time to finish the probject. 
+In the end the script uses meld and dcast to calculate the average of each variable for each activity and each subject. 
