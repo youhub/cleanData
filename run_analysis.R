@@ -31,12 +31,8 @@ y_test<-setNames(y_test, c("activity"))
 y_train<-setNames(y_train, c("activity"))
 
 # convert activity number to labels
-activity_labels<-setNames(activity_labels, c("activity_num", "activity_label"))
-activity_labels$activity_num<-lapply(activity_labels$activity_num, as.numeric)
-activity_labels$activity_label<-lapply(activity_labels$activity_label, as.character)
-
-y_test$activity<-mapvalues(y_test$activity,   from=activity_labels$activity_num, to=activity_labels$activity_label)
-y_train$activity<-mapvalues(y_train$activity, from=activity_labels$activity_num, to=activity_labels$activity_label)
+y_test[,"activity"] = activity_labels[y_test[,"activity"], 2]
+y_train[,"activity"] = activity_labels[y_train[,"activity"], 2]
 
 # combine all test data
 test_data<-cbind(subject_test,y_test)
@@ -50,6 +46,5 @@ train_data<-cbind(train_data, selected_x_train)
 combined_data <- rbind(test_data, train_data)
 
 data_melted <- melt(combined_data, id=c("subject", "activity"))
-
 tidy_data <- dcast(data_melted, activity + subject ~ variable, mean)
-write.table(tidy_data, file="tidy.txt", row.names=FALSE, quote=FALSE)
+write.table(tidy_data, "tidy_data_set.txt")
